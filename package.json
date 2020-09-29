@@ -1,0 +1,21 @@
+{
+  "name": "transfer-examples",
+  "version": "1.0.0",
+  "description": "Examples of constructing, signing, and sending transactions to the NEAR blockchain.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nearprotocol",
+    "blockchain",
+    "transaction"
+  ],
+  "author": "Josh Ford",
+  "license": "ISC",
+  "dependencies": {
+    "bn": "^1.0.5",
+    "near-api-js": "^0.30.0",
+    "os": "^0.1.1"
+  }
+}
