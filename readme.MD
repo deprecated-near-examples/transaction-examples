@@ -25,11 +25,11 @@ npm install -g near-cli
 ```bash
 npm i
 ```
-3) In `send-tokens.js`, update:
+2) In `send-tokens.js`, update:
   - network ID (`testnet` is default)
   - account IDs for `sender` and `receiver`.
-4) Enter the amount of Ⓝ you would like to send. (Line 11).
-5) Run the file and send those tokens!
+3) Enter the amount of Ⓝ you would like to send. (Line 11).
+4) Run the file and send those tokens!
 ```bash
 node send-tokens.js
 ```
