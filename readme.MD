@@ -3,7 +3,7 @@ Constructing transactions on NEAR
 
 This repository serves to demonstrate how transactions are created, signed, and sent to the NEAR blockchain. This example is shows a slightly lower level process than you would find on other [NEAR examples](https://near.dev).
 
-For this example we will be sending NEAR tokens from one account to another.
+Our main example we illustrate the process by sending NEAR tokens from one account to another. 
 
 ## Prerequisites:
 

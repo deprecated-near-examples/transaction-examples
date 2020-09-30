@@ -1,9 +1,9 @@
 const api = require('near-api-js');
-const getConfig = require('./config');
+const { setupNear, formatAmount } = require('./utils');
 const { transactions, utils } = api;
-const { formatAmount } = require('./utils');
 
-const near = getConfig('testnet');
+//configure your network
+const near = setupNear('testnet');
 
 const sender = 'nearkat.testnet';
 const receiver = 'joshford.testnet';
