@@ -13,7 +13,7 @@ const networkId = near.config.networkId;
 async function main() {
   console.log('Processing transaction...')
 
-  // setup sending account
+  // get public key for sending account
   const publicKey = await near.connection.signer.getPublicKey(sender, networkId);
 
   // throw error to console if publicKey is not found in ~/.near-credentials
@@ -29,11 +29,11 @@ async function main() {
       return console.log(`Account [ ${sender} ] does not have permission to send tokens using key: [ ${publicKey} ]`);
     };
 
-  //gets current nonce from the key and adds 1 (creating nonce for this transaction)
-  //each time the key is used in a transaction the nonce is incremented by 1
+  // gets current nonce from the key and adds 1 to create a nonce for this transaction
+  // each time the key is used in a transaction the nonce is incremented by 1
   const nonce = ++accessKey.nonce;
 
-  // constructs actions params that will be passed to the createTransaction method below (Line 44.)
+  // constructs an actions object that will be passed to the createTransaction method below
   const actions = [transactions.transfer(amount)];
   
   // create transaction
@@ -46,7 +46,7 @@ async function main() {
     utils.serialize.base_decode(accessKey.block_hash)
     );
   // **NOTE** the last argument passed is a current block hash we received when declaring 
-  // the accessKey variable on line 23. We pass this particular argument to prove that 
+  // the accessKey variable on line 25. We pass this particular argument to prove that 
   // the transaction was constructed recently. (within last 12 hrs)
 
   // sign transaction
@@ -61,7 +61,7 @@ async function main() {
   try {
     //encodes transaction to serialized BORSH (required for all transactions)
     const bytes = signedTx.encode();
-    //sends transaction to NEAR via JSON RPC call and record the result
+    //sends transaction to NEAR via JSON RPC call and records the result
     const result = await near.connection.provider.sendJsonRpc(
       'broadcast_tx_commit', 
       [Buffer.from(bytes).toString('base64')]
