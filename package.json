@@ -15,7 +15,6 @@
   "license": "ISC",
   "dependencies": {
     "bn": "^1.0.5",
-    "near-api-js": "^0.30.0",
-    "os": "^0.1.1"
+    "near-api-js": "^0.30.0"
   }
 }
