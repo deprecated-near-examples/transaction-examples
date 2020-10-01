@@ -20,7 +20,7 @@ function setupNear(env){
   });  
 };
 
-// converts the amount passed into Yacto Near (10^−24)
+// converts amount into Yacto Near (10^−24)
 // BigInt() allows JavaScript to handle these large numbers
 function formatAmount(amount) {
   return BigInt(nearAPI.utils.format.parseNearAmount(amount.toString()));
