@@ -2,10 +2,10 @@ const api = require('near-api-js');
 const { setupNear, formatAmount } = require('./utils');
 const { transactions, utils } = api;
 
-//configure your network
+// configure your network
 const near = setupNear('testnet');
 
-//configure accounts and amount of NEAR to send
+// configure accounts and amount of NEAR to send
 const sender = 'nearkat.testnet';
 const receiver = 'joshford.testnet';
 const amount = formatAmount(1);
@@ -22,7 +22,7 @@ async function main() {
     return console.log(`ERROR: Key not found for sender account: [ ${sender} ]`);
   };
 
-  //gets key information from blockchain using sender's public key
+  // gets key information from blockchain using sender's public key
   const accessKey = await near.connection.provider.query(`access_key/${sender}/${publicKey.toString()}`, '');
 
   // return error to console if key is not a full access key
@@ -60,14 +60,14 @@ async function main() {
 
   // send transaction!
   try {
-    //encodes transaction to serialized BORSH (required for all transactions)
+    // encodes transaction to serialized BORSH (required for all transactions)
     const bytes = signedTx.encode();
-    //sends transaction to NEAR blockchain via JSON RPC call and records the result
+    // sends transaction to NEAR blockchain via JSON RPC call and records the result
     const result = await near.connection.provider.sendJsonRpc(
       'broadcast_tx_commit', 
       [Buffer.from(bytes).toString('base64')]
       );
-    //console results :)
+    // console results :)
     console.log('Transaction Results: ', result.transaction);
     console.log('--------------------------------------------------------------------------------------------')
     console.log('OPEN LINK BELOW to see transaction in NEAR Explorer!');
@@ -78,5 +78,5 @@ async function main() {
   };
 };
 
-//run the function
+// run the function
 main();
