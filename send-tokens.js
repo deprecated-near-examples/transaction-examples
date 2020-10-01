@@ -1,6 +1,5 @@
 const api = require('near-api-js');
 const { setupNear, formatAmount } = require('./utils');
-const { transactions, utils } = api;
 
 // configure your network
 const near = setupNear('testnet');
@@ -35,23 +34,23 @@ async function main() {
   const nonce = ++accessKey.nonce;
 
   // constructs actions that will be passed to the createTransaction method below
-  const actions = [transactions.transfer(amount)];
+  const actions = [api.transactions.transfer(amount)];
   
   // create transaction
-  const tx = transactions.createTransaction(
+  const tx = api.transactions.createTransaction(
     sender, 
     publicKey, 
     receiver, 
     nonce, 
     actions, 
-    utils.serialize.base_decode(accessKey.block_hash)
+    api.utils.serialize.base_decode(accessKey.block_hash)
     );
   // **NOTE** the last argument passed is a current block hash we received when declaring 
-  // the accessKey variable on line 26. We pass this particular argument to prove that 
+  // the accessKey variable on line 25. We pass this particular argument to prove that 
   // the transaction was constructed recently. (within last 12 hrs)
 
   // sign transaction
-  const [txHash, signedTx] = await transactions.signTransaction(
+  const [txHash, signedTx] = await api.transactions.signTransaction(
     tx, 
     near.connection.signer, 
     sender, 
