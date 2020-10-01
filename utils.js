@@ -1,12 +1,15 @@
 const nearAPI = require('near-api-js');
-const BN = require('bn.js');
 const getConfig = require('./config');
 
-const keyStore = new nearAPI.keyStores.UnencryptedFileSystemKeyStore(`${process.env.HOME}/.near-credentials`);
+// create a keyStore to sign transactions
+const keyStore = new nearAPI.keyStores.UnencryptedFileSystemKeyStore(
+  `${process.env.HOME}/.near-credentials`
+  );
 
+// constructs an object that will allow connection
+// and interaction with the NEAR blockchain
 function setupNear(env){
   const config = getConfig(env);
-
   return new nearAPI.Near({
     keyStore: keyStore,
     networkId: config.networkId,
@@ -17,8 +20,10 @@ function setupNear(env){
   });  
 };
 
+// converts the amount passed into Yacto Near (10^−24)
+// BigInt() allows JavaScript to handle these large numbers
 function formatAmount(amount) {
-  return new BN(nearAPI.utils.format.parseNearAmount(amount.toString()));
+  return BigInt(nearAPI.utils.format.parseNearAmount(amount.toString()));
 };
 
 module.exports = {
