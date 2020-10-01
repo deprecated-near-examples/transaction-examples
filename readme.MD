@@ -28,7 +28,7 @@ npm i
 2) In `send-tokens.js`, update:
   - network ID (`testnet` is default)
   - account IDs for `sender` and `receiver`.
-3) Enter the amount of Ⓝ you would like to send. (Line 11).
+3) Enter the amount of Ⓝ you would like to send. (Line 10).
 4) Run the file and send those tokens!
 ```bash
 node send-tokens.js
