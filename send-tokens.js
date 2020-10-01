@@ -36,6 +36,11 @@ async function main() {
   // constructs actions that will be passed to the createTransaction method below
   const actions = [nearAPI.transactions.transfer(amount)];
   
+  // converts a recent block hash into an array of bytes 
+  // this hash was retrieved earlier when creating the accessKey (Line 25)
+  // this is required to prove the tx was recently constructed (within 12hrs)
+  const recentBlockHash = nearAPI.utils.serialize.base_decode(accessKey.block_hash)
+ 
   // create transaction
   const tx = nearAPI.transactions.createTransaction(
     sender, 
@@ -43,11 +48,8 @@ async function main() {
     receiver, 
     nonce, 
     actions, 
-    nearAPI.utils.serialize.base_decode(accessKey.block_hash)
+    recentBlockHash
     );
-  // **NOTE** the last argument passed is a current block hash we received when declaring 
-  // the accessKey variable on line 25. We pass this particular argument to prove that 
-  // the transaction was constructed recently. (within last 12 hrs)
 
   // sign transaction
   const [txHash, signedTx] = await nearAPI.transactions.signTransaction(
