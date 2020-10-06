@@ -1,8 +1,11 @@
 const nearAPI = require('near-api-js');
+const sha256 = require('js-sha256');
 const { setupNear, formatAmount } = require('./utils');
 
 // configure your network
 const near = setupNear('testnet');
+const privateKey = process.env.NEARKAT_PRIVATE_KEY
+const keyPair = nearAPI.utils.key_pair.KeyPairEd25519.fromString(privateKey)
 
 // configure accounts and amount of NEAR to send
 const sender = 'nearkat.testnet';
@@ -42,7 +45,7 @@ async function main() {
   const recentBlockHash = nearAPI.utils.serialize.base_decode(accessKey.block_hash)
  
   // create transaction
-  const tx = nearAPI.transactions.createTransaction(
+  const transaction = nearAPI.transactions.createTransaction(
     sender, 
     publicKey, 
     receiver, 
@@ -51,18 +54,30 @@ async function main() {
     recentBlockHash
     );
 
-  // sign transaction
-  const [txHash, signedTx] = await nearAPI.transactions.signTransaction(
-    tx, 
-    near.connection.signer, 
-    sender, 
-    networkId
+  // Before we can sign the transaction we must perform three steps
+  // 1) Serialize the transaction in BORSH
+  const serializedTx = nearAPI.utils.serialize.serialize(
+    nearAPI.transactions.SCHEMA, 
+    transaction
     );
+  // 2) Hash the serialized transaction using sha256
+  const hashedTx = new Uint8Array(sha256.sha256.array(serializedTx));
+  // 3) Create a unique signature using the hashed transaction
+  const signature = keyPair.sign(hashedTx);
+  
+  // Now we can sign the transaction :)
+  const signedTransaction = new nearAPI.transactions.SignedTransaction({
+    transaction,
+    signature: new nearAPI.transactions.Signature({ 
+      keyType: transaction.publicKey.keyType, 
+      data: signature.signature 
+    })
+  });
 
   // send transaction!
   try {
-    // encodes transaction to serialized BORSH (required for all transactions)
-    const bytes = signedTx.encode();
+    // encodes signed transaction to serialized BORSH (required for all transactions)
+    const bytes = signedTransaction.encode();
     // sends transaction to NEAR blockchain via JSON RPC call and records the result
     const result = await near.connection.provider.sendJsonRpc(
       'broadcast_tx_commit', 
