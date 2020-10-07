@@ -57,14 +57,14 @@ async function main() {
     );
 
   // before we can sign the transaction we must perform three steps...
-  // 1) serialize the transaction in BORSH
+  // 1) serialize the transaction in Borsh
   const serializedTx = nearAPI.utils.serialize.serialize(
     nearAPI.transactions.SCHEMA, 
     transaction
     );
   // 2) hash the serialized transaction using sha256
   const hashedTx = new Uint8Array(sha256.sha256.array(serializedTx));
-  // 3) create a unique signature using the hashed transaction
+  // 3) create a signature using the hashed transaction
   const signature = keyPair.sign(hashedTx);
 
   // now we can sign the transaction :)
@@ -78,7 +78,7 @@ async function main() {
 
   // send the transaction!
   try {
-    // encodes signed transaction to serialized BORSH (required for all transactions)
+    // encodes signed transaction to serialized Borsh (required for all transactions)
     const serializedTx = signedTransaction.encode();
     // sends transaction to NEAR blockchain via JSON RPC call and records the result
     const result = await provider.sendJsonRpc(
