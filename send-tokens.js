@@ -2,6 +2,8 @@ const nearAPI = require('near-api-js');
 const sha256 = require('js-sha256');
 const getConfig = require('./config');
 const { formatAmount } = require('./utils');
+//this is required if using a local .env file for private key
+require('dotenv').config();
 
 // configure accounts, network, and amount of NEAR to send
 const sender = 'sender.testnet';
@@ -13,11 +15,11 @@ const amount = formatAmount(1);
 const provider = new nearAPI.providers.JsonRpcProvider(config.nodeUrl);
 
 // creates keyPair used to sign transaction
-const privateKey = process.env.SENDER_PRIVATE_KEY
-const keyPair = nearAPI.utils.key_pair.KeyPairEd25519.fromString(privateKey)
+const privateKey = process.env.SENDER_PRIVATE_KEY;
+const keyPair = nearAPI.utils.key_pair.KeyPairEd25519.fromString(privateKey);
 
 async function main() {
-  console.log('Processing transaction...')
+  console.log('Processing transaction...');
 
   // gets sender's public key
   const publicKey = keyPair.getPublicKey();
@@ -44,7 +46,7 @@ async function main() {
   // converts a recent block hash into an array of bytes 
   // this hash was retrieved earlier when creating the accessKey (Line 26)
   // this is required to prove the tx was recently constructed (within 24hrs)
-  const recentBlockHash = nearAPI.utils.serialize.base_decode(accessKey.block_hash)
+  const recentBlockHash = nearAPI.utils.serialize.base_decode(accessKey.block_hash);
  
   // create transaction
   const transaction = nearAPI.transactions.createTransaction(
@@ -63,9 +65,9 @@ async function main() {
     transaction
     );
   // 2) hash the serialized transaction using sha256
-  const hashedTx = new Uint8Array(sha256.sha256.array(serializedTx));
+  const serializedTxHash = new Uint8Array(sha256.sha256.array(serializedTx));
   // 3) create a signature using the hashed transaction
-  const signature = keyPair.sign(hashedTx);
+  const signature = keyPair.sign(serializedTxHash);
 
   // now we can sign the transaction :)
   const signedTransaction = new nearAPI.transactions.SignedTransaction({
@@ -90,7 +92,7 @@ async function main() {
     console.log('--------------------------------------------------------------------------------------------')
     console.log('OPEN LINK BELOW to see transaction in NEAR Explorer!');
     console.log(`${config.explorerUrl}/transactions/${result.transaction.hash}`);
-    console.log('--------------------------------------------------------------------------------------------')
+    console.log('--------------------------------------------------------------------------------------------');
   } catch (error) {
     console.log(error);
   };
