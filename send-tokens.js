@@ -81,11 +81,11 @@ async function main() {
   // send the transaction!
   try {
     // encodes signed transaction to serialized Borsh (required for all transactions)
-    const serializedTx = signedTransaction.encode();
+    const signedSerialized = signedTransaction.encode();
     // sends transaction to NEAR blockchain via JSON RPC call and records the result
     const result = await provider.sendJsonRpc(
       'broadcast_tx_commit', 
-      [Buffer.from(serializedTx).toString('base64')]
+      [Buffer.from(signedSerialized).toString('base64')]
       );
     // console results :)
     console.log('Transaction Results: ', result.transaction);
