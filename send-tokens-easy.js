@@ -1,5 +1,5 @@
 const nearAPI  = require('near-api-js');
-const { connect, KeyPair, keyStores, utils } = nearAPI
+const { connect, KeyPair, keyStores, utils } = nearAPI;
 const { formatAmount } = require('./utils');
 
 //this is required if using a local .env file for private key
@@ -27,7 +27,7 @@ async function main() {
     walletUrl: 'https://wallet.testnet.near.org',
     helperUrl: 'https://helper.testnet.near.org',
     explorerUrl: 'https://explorer.testnet.near.org'
-  }
+  };
 
   // connect to NEAR! :) 
   const near = await connect(config);
@@ -36,20 +36,20 @@ async function main() {
 
   try {
     // here we are using near-api-js utils to convert yoctoNEAR back into a floating point
-    console.log(`Sending ${utils.format.formatNearAmount(amount)}Ⓝ from ${sender} to ${receiver}...`)
+    console.log(`Sending ${utils.format.formatNearAmount(amount)}Ⓝ from ${sender} to ${receiver}...`);
     // send those tokens! :)
     const result = await senderAccount.sendMoney(receiver, amount);
     // console results
     console.log('Transaction Results: ', result.transaction);
-    console.log('--------------------------------------------------------------------------------------------')
+    console.log('--------------------------------------------------------------------------------------------');
     console.log('OPEN LINK BELOW to see transaction in NEAR Explorer!');
     console.log(`${config.explorerUrl}/transactions/${result.transaction.hash}`);
     console.log('--------------------------------------------------------------------------------------------');
-  } catch (error) {
+  } catch(error) {
     // return an error if unsuccessful
     console.log(error);
-  };
-};
+  }
+}
 
 // run the function
 main();

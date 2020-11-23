@@ -27,14 +27,14 @@ async function main() {
   // gets sender's public key information from NEAR blockchain 
   const accessKey = await provider.query(
     `access_key/${sender}/${publicKey.toString()}`, ''
-    );
+  );
 
   // checks to make sure provided key is a full access key
   if(accessKey.permission !== 'FullAccess') {
-      return console.log(
-        `Account [ ${sender} ] does not have permission to send tokens using key: [ ${publicKey} ]`
-        );
-    };
+    return console.log(
+      `Account [ ${sender} ] does not have permission to send tokens using key: [ ${publicKey} ]`
+    );
+  }
 
   // each transaction requires a unique number or nonce
   // this is created by taking the current nonce and incrementing it
@@ -56,14 +56,14 @@ async function main() {
     nonce, 
     actions, 
     recentBlockHash
-    );
+  );
 
   // before we can sign the transaction we must perform three steps...
   // 1) serialize the transaction in Borsh
   const serializedTx = nearAPI.utils.serialize.serialize(
     nearAPI.transactions.SCHEMA, 
     transaction
-    );
+  );
   // 2) hash the serialized transaction using sha256
   const serializedTxHash = new Uint8Array(sha256.sha256.array(serializedTx));
   // 3) create a signature using the hashed transaction
@@ -86,17 +86,17 @@ async function main() {
     const result = await provider.sendJsonRpc(
       'broadcast_tx_commit', 
       [Buffer.from(serializedTx).toString('base64')]
-      );
+    );
     // console results :)
     console.log('Transaction Results: ', result.transaction);
-    console.log('--------------------------------------------------------------------------------------------')
+    console.log('--------------------------------------------------------------------------------------------');
     console.log('OPEN LINK BELOW to see transaction in NEAR Explorer!');
     console.log(`${config.explorerUrl}/transactions/${result.transaction.hash}`);
     console.log('--------------------------------------------------------------------------------------------');
-  } catch (error) {
+  } catch(error) {
     console.log(error);
-  };
-};
+  }
+}
 
 // run the function
 main();

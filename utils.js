@@ -7,8 +7,8 @@ function formatAmount(amount) {
     .utils
     .format
     .parseNearAmount(amount.toString())
-    );
-};
+  );
+}
 
 module.exports = {
   formatAmount
