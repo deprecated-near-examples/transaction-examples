@@ -1,5 +1,5 @@
 const nearAPI  = require('near-api-js');
-const { connect, KeyPair, keyStores } = nearAPI
+const { connect, KeyPair, keyStores, utils } = nearAPI
 const { formatAmount } = require('./utils');
 
 //this is required if using a local .env file for private key
@@ -9,17 +9,17 @@ require('dotenv').config();
 const sender = 'sender.testnet';
 const receiver = 'receiver.testnet';
 const networkId = 'default';
-const amount = formatAmount(1);
+const amount = formatAmount(1.5);
 
 async function main() {
-  // sets up an empty keyStore object using near-api-js
+  // sets up an empty keyStore object in memory using near-api-js
   const keyStore = new keyStores.InMemoryKeyStore();
   // creates a keyPair from the private key provided in your .env file
   const keyPair = KeyPair.fromString(process.env.SENDER_PRIVATE_KEY);
   // adds the key you just created to your keyStore which can hold multiple keys
   await keyStore.setKey(networkId, sender, keyPair);
 
-  // creates a configuration object used to connect to NEAR
+  // configuration used to connect to NEAR
   const config = {
     networkId,
     keyStore,
@@ -35,9 +35,10 @@ async function main() {
   const senderAccount = await near.account(sender);
 
   try {
+    // here we are using near-api-js utils to convert yoctoNEAR back into a floating point
+    console.log(`Sending ${utils.format.formatNearAmount(amount)}Ⓝ from ${sender} to ${receiver}...`)
     // send those tokens! :)
     const result = await senderAccount.sendMoney(receiver, amount);
-
     // console results
     console.log('Transaction Results: ', result.transaction);
     console.log('--------------------------------------------------------------------------------------------')
@@ -45,6 +46,7 @@ async function main() {
     console.log(`${config.explorerUrl}/transactions/${result.transaction.hash}`);
     console.log('--------------------------------------------------------------------------------------------');
   } catch (error) {
+    // return an error if unsuccessful
     console.log(error);
   };
 };

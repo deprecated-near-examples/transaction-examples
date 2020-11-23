@@ -1,6 +1,6 @@
 const nearAPI = require('near-api-js');
 
-// converts NEAR amount into Yocto NEAR (10^−24)
+// converts NEAR amount into yoctoNEAR (10^−24)
 // BigInt() allows JavaScript to handle these large numbers
 function formatAmount(amount) {
   return BigInt(nearAPI
