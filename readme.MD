@@ -25,11 +25,11 @@ npm i
 ## Examples:
 
 ### Send Tokens (High Level)
->[`send-tokens-easy.js`](./send-tokens-easy.js) will show you the easiest way to send NEAR tokens (Ⓝ) using JavaScript with [`near-api-js`](https://github.com/near/near-api-js) `sendMoney()`
+>[`send-tokens-easy.js`](./send-tokens-easy.js) will show you the easiest (JavaScript) way to send NEAR tokens (Ⓝ) using a [`near-api-js`](https://github.com/near/near-api-js) method; `account.sendMoney()`
 
 1) In `send-tokens-easy.js`, update:
   - account IDs for `sender` and `receiver`.
-  - network ID (`testnet` is default)
+  - network ID (`default` is `testnet`)
 
 2) Run the file and send those tokens!
 
@@ -38,7 +38,7 @@ node send-tokens-easy.js
 ```
 
 ### Send Tokens (Low Level)
->[`send-tokens-deconstructed.js`](./send-tokens-deconstructed.js)completely dissects the transaction creation process and shows the lowest level way to send NEAR tokens (Ⓝ).
+>[`send-tokens-deconstructed.js`](./send-tokens-deconstructed.js) completely dissects the transaction construction process and shows the lowest level way to send NEAR tokens (Ⓝ).
 
 1) In `send-tokens-deconstructed.js`, update:
   - account IDs for `sender` and `receiver`.
