@@ -3,10 +3,6 @@ Constructing transactions on NEAR
 
 This repository serves to demonstrate how transactions are created, signed, and sent to the NEAR blockchain. 
 
-For this example, we will show you how to construct a transaction that will send NEAR tokens from one account to another. 
-
-**Note**: This example shows a lower level process than you would  normally find on other [NEAR examples](https://near.dev).
-
 ## Prerequisites:
 
 - Current version of [Node.js](https://nodejs.org/). >=v14.0.0
@@ -26,12 +22,31 @@ export SENDER_PRIVATE_KEY=3wb4fVQvafPebkcCmyQPgMa2VsnX3JAQXZ4gjpc3kSu9AbVtLpLZqE
 npm i
 ```
 
-3) In `send-tokens.js`, update:
+## Examples:
+
+### Send Tokens (High Level)
+>[`send-tokens-easy.js`](./send-tokens-easy.js) will show you the easiest way to send NEAR tokens (Ⓝ) using JavaScript with [`near-api-js`](https://github.com/near/near-api-js) `sendMoney()`
+
+1) In `send-tokens-easy.js`, update:
   - account IDs for `sender` and `receiver`.
   - network ID (`testnet` is default)
-4) Enter the amount of Ⓝ you would like to send. (Line 12).
-5) Run the file and send those tokens!
+
+2) Run the file and send those tokens!
+
 ```bash
-node send-tokens.js
+node send-tokens-easy.js
+```
+
+### Send Tokens (Low Level)
+>[`send-tokens-deconstructed.js`](./send-tokens-deconstructed.js)completely dissects the transaction creation process and shows the lowest level way to send NEAR tokens (Ⓝ).
+
+1) In `send-tokens-deconstructed.js`, update:
+  - account IDs for `sender` and `receiver`.
+  - network ID (`testnet` is default)
+2) Enter the amount of Ⓝ you would like to send.
+3) Run the file and send those tokens!
+  
+```bash
+node send-tokens-deconstructed.js
 ```
 Happy coding! 🚀 
