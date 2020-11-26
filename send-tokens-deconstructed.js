@@ -1,15 +1,23 @@
 const nearAPI = require('near-api-js');
 const sha256 = require('js-sha256');
-const getConfig = require('./config');
-const { formatAmount } = require('./utils');
 //this is required if using a local .env file for private key
 require('dotenv').config();
 
 // configure accounts, network, and amount of NEAR to send
+// the amount is converted into yoctoNEAR (10^-24) using a near-api-js utility
 const sender = 'sender.testnet';
 const receiver = 'receiver.testnet';
-const config = getConfig('testnet');
-const amount = formatAmount(1);
+const networkId = 'default';
+const amount = nearAPI.utils.format.parseNearAmount('1.5');
+
+// configuration used to connect to NEAR
+const config = {
+  networkId,
+  nodeUrl: 'https://rpc.testnet.near.org',
+  walletUrl: 'https://wallet.testnet.near.org',
+  helperUrl: 'https://helper.testnet.near.org',
+  explorerUrl: 'https://explorer.testnet.near.org'
+};
 
 // sets up NEAR connection based on networkId
 const provider = new nearAPI.providers.JsonRpcProvider(config.nodeUrl);

@@ -49,4 +49,7 @@ node send-tokens-easy.js
 ```bash
 node send-tokens-deconstructed.js
 ```
+
+For a detailed walk-through, see the [create-transactions](https://docs.near.org/docs/tutorials/create-transactions) doc.
+
 Happy coding! 🚀 
