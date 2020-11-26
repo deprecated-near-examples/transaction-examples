@@ -7,16 +7,16 @@ require('dotenv').config();
 // the amount is converted into yoctoNEAR (10^-24) using a near-api-js utility
 const sender = 'sender.testnet';
 const receiver = 'receiver.testnet';
-const networkId = 'default';
+const networkId = 'testnet';
 const amount = nearAPI.utils.format.parseNearAmount('1.5');
 
 // configuration used to connect to NEAR
 const config = {
   networkId,
-  nodeUrl: 'https://rpc.testnet.near.org',
-  walletUrl: 'https://wallet.testnet.near.org',
-  helperUrl: 'https://helper.testnet.near.org',
-  explorerUrl: 'https://explorer.testnet.near.org'
+  nodeUrl: `https://rpc.${networkId}.near.org`,
+  walletUrl: `https://wallet.${networkId}.near.org`,
+  helperUrl: `https://helper.${networkId}.near.org`,
+  explorerUrl: `https://explorer.${networkId}.near.org`
 };
 
 // sets up NEAR connection based on networkId

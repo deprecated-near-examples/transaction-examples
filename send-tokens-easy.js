@@ -5,10 +5,10 @@ const { connect, KeyPair, keyStores, utils } = nearAPI;
 require('dotenv').config();
 
 // configure accounts, network, and amount of NEAR to send
-// converts NEAR amount into yoctoNEAR (10^−24) using a near-api-js utility
+// converts NEAR amount into yoctoNEAR (10^-24) using a near-api-js utility
 const sender = 'sender.testnet';
 const receiver = 'receiver.testnet';
-const networkId = 'default';
+const networkId = 'testnet';
 const amount = utils.format.parseNearAmount('1.5');
 
 async function main() {
@@ -23,10 +23,10 @@ async function main() {
   const config = {
     networkId,
     keyStore,
-    nodeUrl: 'https://rpc.testnet.near.org',
-    walletUrl: 'https://wallet.testnet.near.org',
-    helperUrl: 'https://helper.testnet.near.org',
-    explorerUrl: 'https://explorer.testnet.near.org'
+    nodeUrl: `https://rpc.${networkId}.near.org`,
+    walletUrl: `https://wallet.${networkId}.near.org`,
+    helperUrl: `https://helper.${networkId}.near.org`,
+    explorerUrl: `https://explorer.${networkId}.near.org`
   };
 
   // connect to NEAR! :) 
