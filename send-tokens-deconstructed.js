@@ -10,17 +10,9 @@ const receiver = 'receiver.testnet';
 const networkId = 'testnet';
 const amount = nearAPI.utils.format.parseNearAmount('1.5');
 
-// configuration used to connect to NEAR
-const config = {
-  networkId,
-  nodeUrl: `https://rpc.${networkId}.near.org`,
-  walletUrl: `https://wallet.${networkId}.near.org`,
-  helperUrl: `https://helper.${networkId}.near.org`,
-  explorerUrl: `https://explorer.${networkId}.near.org`
-};
-
-// sets up NEAR connection based on networkId
-const provider = new nearAPI.providers.JsonRpcProvider(config.nodeUrl);
+// sets up a NEAR API/RPC provider to interact with the blockchain
+const provider = new nearAPI.providers
+  .JsonRpcProvider(`https://rpc.${networkId}.near.org`);
 
 // creates keyPair used to sign transaction
 const privateKey = process.env.SENDER_PRIVATE_KEY;
@@ -99,7 +91,7 @@ async function main() {
     console.log('Transaction Results: ', result.transaction);
     console.log('--------------------------------------------------------------------------------------------');
     console.log('OPEN LINK BELOW to see transaction in NEAR Explorer!');
-    console.log(`${config.explorerUrl}/transactions/${result.transaction.hash}`);
+    console.log(`$https://explorer.${networkId}.near.org/transactions/${result.transaction.hash}`);
     console.log('--------------------------------------------------------------------------------------------');
   } catch(error) {
     console.log(error);
