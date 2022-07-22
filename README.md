@@ -50,6 +50,6 @@ node send-tokens-easy.js
 node send-tokens-deconstructed.js
 ```
 
-For a detailed walk-through, see the [create-transactions](https://docs.near.org/docs/tutorials/create-transactions) doc.
+For a detailed walk-through, see the [create-transactions](https://docs.near.org/integrator/create-transactions) doc.
 
 Happy coding! 🚀 
