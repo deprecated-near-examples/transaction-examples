@@ -7,8 +7,8 @@ This repository serves to demonstrate how transactions are created, signed, and 
 
 - Current version of [Node.js](https://nodejs.org/). >=v14.0.0
 - Private key of the sender's account
-  - If the account was created using [near-cli](https://docs.near.org/docs/tools/near-cli) or you ran [near login](https://docs.near.org/docs/tools/near-cli#for-accounts) in your terminal, the private key can be found in a .json file located in /HOME/.near-credentials.
-  - If the account was created using [NEAR Wallet](https://wallet.testnet.near.org/), the key can be found in the browser's Local Storage (in your browser's Developer tools... Application >> Storage >> Local Storage). Watch [this short video](https://youtu.be/rw2Tdc-7ccM) to learn how to get it.
+  - If the account was created using [near-cli](https://docs.near.org/tools/near-cli) or you ran [near login](https://docs.near.org/tools/near-cli#for-accounts) in your terminal, the private key can be found in a .json file located in /HOME/.near-credentials.
+  - If the account was created using [NEAR Wallet](https://wallet.testnet.near.org/), the key can be found in the browser's Local Storage (in your browser's Developer tools... `Application >> Storage >> Local Storage`). Watch [this short video](https://youtu.be/rw2Tdc-7ccM) to learn how to get it.
 
 ## Setup:
 
