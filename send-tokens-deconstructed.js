@@ -61,7 +61,7 @@ async function main() {
   // before we can sign the transaction we must perform three steps...
   // 1) serialize the transaction in Borsh
   const serializedTx = nearAPI.utils.serialize.serialize(
-    nearAPI.transactions.SCHEMA, 
+    nearAPI.transactions.SCHEMA.Transaction, 
     transaction
   );
   // 2) hash the serialized transaction using sha256
