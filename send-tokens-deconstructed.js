@@ -16,7 +16,7 @@ const provider = new nearAPI.providers
 
 // creates keyPair used to sign transaction
 const privateKey = process.env.SENDER_PRIVATE_KEY;
-const keyPair = nearAPI.utils.key_pair.KeyPairEd25519.fromString(privateKey);
+const keyPair = nearAPI.KeyPair.fromString(privateKey);
 
 async function main() {
   console.log('Processing transaction...');
@@ -61,7 +61,7 @@ async function main() {
   // before we can sign the transaction we must perform three steps...
   // 1) serialize the transaction in Borsh
   const serializedTx = nearAPI.utils.serialize.serialize(
-    nearAPI.transactions.SCHEMA, 
+    nearAPI.transactions.SCHEMA.Transaction, 
     transaction
   );
   // 2) hash the serialized transaction using sha256
