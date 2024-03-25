@@ -16,7 +16,7 @@ const provider = new nearAPI.providers
 
 // creates keyPair used to sign transaction
 const privateKey = process.env.SENDER_PRIVATE_KEY;
-const keyPair = nearAPI.utils.key_pair.KeyPairEd25519.fromString(privateKey);
+const keyPair = nearAPI.KeyPair.fromString(privateKey);
 
 async function main() {
   console.log('Processing transaction...');
